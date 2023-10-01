@@ -1,5 +1,6 @@
 *.pyc
 .ipynb_checkpoints
+.venv
 
 temp_results\.json
 temp_inspect\.json
