@@ -7,7 +7,8 @@ of the exercise files does what it's supposed to.
 
 from __future__ import division
 from __future__ import print_function
-import imp
+# import imP
+from importlib.machinery import SourceFileLoader
 import math
 import os
 import requests
@@ -85,7 +86,8 @@ def theTests(path_to_code_to_check="."):
     path = "{}/week{}/exercise1.py".format(path_to_code_to_check, WEEK_NUMBER)
     print(path)
 
-    exercise1 = imp.load_source("exercise1", path)
+    # exercise1 = imp.load_source("exercise1", path)
+    exercise1 = SourceFileLoader("exercise1", path)
 
     testResults = []
 

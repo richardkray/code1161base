@@ -6,7 +6,8 @@ of the exercise files does what it's supposed to.
 """
 from __future__ import division
 from __future__ import print_function
-import imp
+# import imp
+from importlib.machinery import SourceFileLoader
 import os
 import sys
 import string
@@ -66,7 +67,8 @@ def theTests(path_to_code_to_check="."):
                                               WEEK_NUMBER)
 
     if ex_runs(path_to_code_to_check, exNumber=1, weekNumber=WEEK_NUMBER):
-        exam = imp.load_source("exercise1", ex1path)
+        # exam = imp.load_source("exercise1", ex1path)
+        exam = SourceFileLoader("exercise1", ex1path)
 
         testResults.append(test(test_flake8(ex1path), "pass the linter"))
 

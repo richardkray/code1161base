@@ -2,7 +2,8 @@
 """Collect up the functons used in all the weeks."""
 from colorama import Fore
 from colorama import Style
-import imp
+# import imp
+from importlib.machinery import SourceFileLoader
 import inspect
 import os
 import signal
@@ -82,7 +83,7 @@ def test_flake8(fileName):
     if report.total_errors == 0:
         return True
     else:
-        print report.total_errors
+        print(report.total_errors)
         return False
 
 
@@ -118,7 +119,8 @@ def ex_runs(path, exNumber, weekNumber):
     """Check that this exercise runs at all."""
     try:
         path = "{}/week{}/exercise{}.py".format(path, weekNumber, exNumber)
-        imp.load_source("exercise{}".format(exNumber), path)
+        # imp.load_source("exercise{}".format(exNumber), path)
+        SourceFileLoader("exercise{}".format(exNumber), path)
         return True
     except Exception as e:
         syntax_error_message(exNumber, e)
@@ -148,9 +150,9 @@ def completion_message(message, width):
     cap = '{start}{s:{c}^{n}}{end}'.format(n=width, c='*', s="",
                                            start=Fore.GREEN,
                                            end=Style.RESET_ALL)
-    print cap + "\n"
+    print (cap + "\n")
     print(Fore.GREEN + "✔ " + message + Style.RESET_ALL)
-    print "\n" + cap
+    print ("\n" + cap)
 
 
 def nyan_cat(block='█'):

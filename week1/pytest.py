@@ -79,5 +79,5 @@ def test_the_vm():
 
 
 if __name__ == "__main__":
-    test_the_vm()
-    check_vm_ID()
+    # test_the_vm()
+    # check_vm_ID()

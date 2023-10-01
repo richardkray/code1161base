@@ -7,7 +7,7 @@ Make sure that your code still runs without any errors by pressing
 """
 from __future__ import division
 from __future__ import print_function
-print  ("hello! Let's get started")
+print("hello! Let's get started")
 jobs=['get','this',
 'file','to','pass',
   'the','linter']

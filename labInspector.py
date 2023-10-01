@@ -15,7 +15,7 @@ for k in users.keys():
     usernames[us["userId"]] = {"username": us["username"].encode('utf8'),
                                "name": us["name"].encode('utf8')}
     template = u"{username}, {name}, {userId}"
-    print template.format(**us).encode('utf8')
+    print(template.format(**us).encode('utf8'))
 
 for k in posts.keys():
     p = posts[k]
@@ -31,4 +31,4 @@ for k in posts.keys():
                 u"author: {username} - {name} ({creatorId}), "
                 u"pub Date {firstPublishedAt}")
     details = template.format(**tidyD)
-    print details.encode('utf-8')
+    print(details.encode('utf-8'))

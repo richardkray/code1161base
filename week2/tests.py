@@ -7,7 +7,8 @@ of the exercise files does what it's supposed to.
 
 from __future__ import division
 from __future__ import print_function
-import imp
+# import imp
+from importlib.machinery import SourceFileLoader
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -24,7 +25,9 @@ def ex2runs(path):
     """Test w2 ex2 to check it works."""
     try:
         if path:
-            imp.load_source("exercise2",
+            # imp.load_source("exercise2",
+            #                 os.path.join(path, "week"+str(WEEK_NUMBER)))
+            SourceFileLoader("exercise2",
                             os.path.join(path, "week"+str(WEEK_NUMBER)))
             return True
         else:
@@ -48,7 +51,9 @@ def ex3runs(path):
     try:
         # this annoys the linter, but I think the scoping is ok
         if path:
-            imp.load_source("exercise3",
+            # imp.load_source("exercise3",
+            #                 os.path.join(path, "week"+str(WEEK_NUMBER)))            
+            SourceFileLoader("exercise3",
                             os.path.join(path, "week"+str(WEEK_NUMBER)))
             return True
         else:
@@ -77,7 +82,8 @@ def theTests(path_to_code_to_check="."):
              "Exercise 0: pass the linter"))
 
     if ex_runs(path_to_code_to_check, exNumber=0, weekNumber=WEEK_NUMBER):
-        exercise0 = imp.load_source("exercise0", path)
+        # exercise0 = imp.load_source("exercise0", path)
+        exercise0 = SourceFileLoader("exercise0", path)
 
         testResults.append(
             test(exercise0.add_5(55) == 60,
@@ -148,7 +154,8 @@ def theTests(path_to_code_to_check="."):
              "Exercise 3: pass the linter"))
 
     if ex3runs(path_to_code_to_check):
-        exercise3 = imp.load_source("exercise3", path)
+        # exercise3 = imp.load_source("exercise3", path)
+        exercise3 = SourceFileLoader("exercise3", path)
         # is odd
         testResults.append(
             test(exercise3.is_odd(2) is False,

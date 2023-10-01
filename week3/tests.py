@@ -6,7 +6,8 @@ of the exercise files does what it's supposed to.
 """
 from __future__ import division
 from __future__ import print_function
-import imp
+# import imp
+from importlib.machinery import SourceFileLoader
 import math
 import mock
 import os
@@ -28,7 +29,8 @@ def test_stubborn_asker(path, low, high):
     """Test the stubborn asker function."""
     try:
         path = "{}/week{}/exercise1.py".format(path, WEEK_NUMBER)
-        exercise1 = imp.load_source("exercise1", path)
+        # exercise1 = imp.load_source("exercise1", path)
+        exercise1 = SourceFileLoader("exercise1", path)
     except Exception as e:
         return syntax_error_message(4, e)
 
@@ -45,7 +47,8 @@ def test_not_number_rejector(path):
     """Test the not number rejector function."""
     try:
         path = "{}/week{}/exercise1.py".format(path, WEEK_NUMBER)
-        exercise1 = imp.load_source("exercise1", path)
+        # exercise1 = imp.load_source("exercise1", path)
+        exercise1 = SourceFileLoader("exercise1", path)
     except Exception as e:
         return syntax_error_message(1, e)
 
@@ -62,7 +65,8 @@ def test_super_asker(path, low, high):
     """Test the super asker function."""
     try:
         path = "{}/week{}/exercise1.py".format(path, WEEK_NUMBER)
-        exercise1 = imp.load_source("exercise1", path)
+        # exercise1 = imp.load_source("exercise1", path)
+        exercise1 = SourceFileLoader("exercise1", path)
     except Exception as e:
         return syntax_error_message(1, e)
 
@@ -84,7 +88,8 @@ def test_example_guessingGame(path):
     """
     try:
         path = "{}/week{}/exercise2.py".format(path, WEEK_NUMBER)
-        exercise2 = imp.load_source("exercise2", path)
+        # exercise2 = imp.load_source("exercise2", path)
+        exercise2 = SourceFileLoader("exercise2", path)
     except Exception as e:
         return syntax_error_message(2, e)
     upperBound = 5
@@ -102,7 +107,8 @@ def test_advanced_guessingGame(path, mockInputs):
     """Test the advanced_guessingGame function."""
     try:
         path = "{}/week{}/exercise3.py".format(path, WEEK_NUMBER)
-        exercise3 = imp.load_source("exercise3", path)
+        # exercise3 = imp.load_source("exercise3", path)
+        exercise3 = SourceFileLoader("exercise3", path)
     except Exception as e:
         return syntax_error_message(3, e)
 
@@ -121,7 +127,7 @@ def test_binary_search(path, low, high, actual):
     """
     try:
         path = "{}/week{}/exercise4.py".format(path, WEEK_NUMBER)
-        exercise4 = imp.load_source("exercise4", path)
+        exercise4 = SourceFileLoader("exercise4", path)
         BASE2 = 2
         b = None
         with Timeout(3):
@@ -141,7 +147,8 @@ def vis_binary_search_performance(path="."):
     """Provide a visualisation of the performance of the binary search."""
     try:
         path = "{}/week{}/exercise4.py".format(path, WEEK_NUMBER)
-        exercise4 = imp.load_source("exercise4", path)
+        # exercise4 = imp.load_source("exercise4", path)
+        exercise4 = SourceFileLoader("exercise4", path)
     except Exception as e:
         return syntax_error_message(4, e)
 
@@ -189,7 +196,8 @@ def theTests(path_to_code_to_check="."):
         test(test_flake8(ex1path), "Exercise 1: pass the linter"))
 
     if ex_runs(path_to_code_to_check, exNumber=1, weekNumber=WEEK_NUMBER):
-        exercise1 = imp.load_source("exercise1", ex1path)
+        # exercise1 = imp.load_source("exercise1", ex1path)
+        exercise1 = SourceFileLoader("exercise1", ex1path)
 
         testResults.append(
             test(exercise1.loop_ranger(3, 8, 1) == [3, 4, 5, 6, 7],
@@ -248,9 +256,12 @@ def theTests(path_to_code_to_check="."):
              "Exercise 2: example guessing game"))
 
     if ex_runs(path_to_code_to_check, exNumber=3, weekNumber=WEEK_NUMBER):
-        imp.load_source("exercise3",
-                        os.path.join(path_to_code_to_check,
-                                     "week"+str(WEEK_NUMBER)))
+        # imp.load_source("exercise3",
+        #                 os.path.join(path_to_code_to_check,
+        #                              "week"+str(WEEK_NUMBER)))
+        SourceFileLoader("exercise3",
+                os.path.join(path_to_code_to_check,
+                                "week"+str(WEEK_NUMBER)))
 
         to_lint = "{}/week{}/exercise3.py".format(path_to_code_to_check,
                                                   WEEK_NUMBER)
@@ -310,7 +321,8 @@ def theTests(path_to_code_to_check="."):
     if ex_runs(path_to_code_to_check, exNumber=4, weekNumber=WEEK_NUMBER):
         path = "{}/week{}/exercise4.py".format(path_to_code_to_check,
                                                WEEK_NUMBER)
-        imp.load_source("exercise4", path)
+        # imp.load_source("exercise4", path)
+        SourceFileLoader("exercise4", path)
 
         testResults.append(
             test(test_flake8(path),
