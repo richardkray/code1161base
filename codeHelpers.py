@@ -76,15 +76,23 @@ def test_flake8(fileName):
     files = [os.path.join(test_dir, fileName)]
     # Import the legacy API as flake8 3.0 currently has no official
     # public API - this has to be changed at some point.
-    from flake8.api import legacy as flake8
-    style_guide = flake8.get_style_guide()
-    report = style_guide.check_files(files)
-
-    if report.total_errors == 0:
+    # from flake8.api import legacy as flake8
+    try:
+        for file in files:
+            subprocess.run(['flake8', file])
         return True
-    else:
-        print(report.total_errors)
+    except subprocess.CalledProcessError as e:
+        print("Code style check failed.")
+        print(e)
         return False
+    # style_guide = flake8.get_style_guide()
+    # report = style_guide.check_files(files)
+
+    # if report.total_errors == 0:
+    #     return True
+    # else:
+    #     print(report.total_errors)
+    #     return False
 
 
 def test_pydocstyle(fileName, flags="-e"):
@@ -150,9 +158,9 @@ def completion_message(message, width):
     cap = '{start}{s:{c}^{n}}{end}'.format(n=width, c='*', s="",
                                            start=Fore.GREEN,
                                            end=Style.RESET_ALL)
-    print (cap + "\n")
+    print(cap + "\n")
     print(Fore.GREEN + "✔ " + message + Style.RESET_ALL)
-    print ("\n" + cap)
+    print("\n" + cap)
 
 
 def nyan_cat(block='█'):

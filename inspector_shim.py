@@ -2,7 +2,7 @@
 import sys
 import inspect
 # import imp
-from importlib.machinery import SourceFileLoader
+import importlib
 import os
 
 REPO_PATH = sys.argv[2]
@@ -12,7 +12,7 @@ LOCAL = os.path.dirname(os.path.realpath(__file__))
 def do_the_test():
     try:
         # test = imp.load_source("test", REPO_PATH)
-        test = SourceFileLoader("test", REPO_PATH)
+        test = importlib.import_module("test", REPO_PATH)
         r = inspect.getsourcelines(test.loops_7)
         return str(r)
     except Exception as e:

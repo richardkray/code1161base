@@ -9,6 +9,7 @@ from __future__ import division
 from __future__ import print_function
 # import imp
 from importlib.machinery import SourceFileLoader
+import importlib
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -83,7 +84,7 @@ def theTests(path_to_code_to_check="."):
 
     if ex_runs(path_to_code_to_check, exNumber=0, weekNumber=WEEK_NUMBER):
         # exercise0 = imp.load_source("exercise0", path)
-        exercise0 = SourceFileLoader("exercise0", path)
+        exercise0 = importlib.import_module("exercise0", path)
 
         testResults.append(
             test(exercise0.add_5(55) == 60,
@@ -155,7 +156,7 @@ def theTests(path_to_code_to_check="."):
 
     if ex3runs(path_to_code_to_check):
         # exercise3 = imp.load_source("exercise3", path)
-        exercise3 = SourceFileLoader("exercise3", path)
+        exercise3 = importlib.import_module("exercise3", path)
         # is odd
         testResults.append(
             test(exercise3.is_odd(2) is False,
@@ -190,7 +191,7 @@ def theTests(path_to_code_to_check="."):
 
         bang_star = ["!", "*", "!", "*", "!", "*", "!", "*", "!", "*"]
         testResults.append(
-            test('map' in exercise3.star_map.func_code.co_names and
+            test('map' in exercise3.star_map.__code__.co_names and
                  exercise3.star_map() == bang_star,
                  "Exercise 3: loops_1b - 1d map"))
 

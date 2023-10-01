@@ -8,6 +8,7 @@ from __future__ import division
 from __future__ import print_function
 # import imp
 from importlib.machinery import SourceFileLoader
+import importlib
 import os
 import sys
 import string
@@ -68,7 +69,7 @@ def theTests(path_to_code_to_check="."):
 
     if ex_runs(path_to_code_to_check, exNumber=1, weekNumber=WEEK_NUMBER):
         # exam = imp.load_source("exercise1", ex1path)
-        exam = SourceFileLoader("exercise1", ex1path)
+        exam = importlib.import_module("exercise1", ex1path)
 
         testResults.append(test(test_flake8(ex1path), "pass the linter"))
 

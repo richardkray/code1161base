@@ -9,6 +9,7 @@ from __future__ import division
 from __future__ import print_function
 # import imP
 from importlib.machinery import SourceFileLoader
+import importlib
 import math
 import os
 import requests
@@ -87,7 +88,7 @@ def theTests(path_to_code_to_check="."):
     print(path)
 
     # exercise1 = imp.load_source("exercise1", path)
-    exercise1 = SourceFileLoader("exercise1", path)
+    exercise1 = importlib.import_module("exercise1", path)
 
     testResults = []
 

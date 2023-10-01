@@ -8,6 +8,7 @@ from __future__ import division
 from __future__ import print_function
 # import imp
 from importlib.machinery import SourceFileLoader
+import importlib
 import math
 import mock
 import os
@@ -30,7 +31,7 @@ def test_stubborn_asker(path, low, high):
     try:
         path = "{}/week{}/exercise1.py".format(path, WEEK_NUMBER)
         # exercise1 = imp.load_source("exercise1", path)
-        exercise1 = SourceFileLoader("exercise1", path)
+        exercise1 = importlib.import_module("exercise1", path)
     except Exception as e:
         return syntax_error_message(4, e)
 
@@ -48,7 +49,7 @@ def test_not_number_rejector(path):
     try:
         path = "{}/week{}/exercise1.py".format(path, WEEK_NUMBER)
         # exercise1 = imp.load_source("exercise1", path)
-        exercise1 = SourceFileLoader("exercise1", path)
+        exercise1 = importlib.import_module("exercise1", path)
     except Exception as e:
         return syntax_error_message(1, e)
 
@@ -71,7 +72,7 @@ def test_super_asker(path, low, high):
         return syntax_error_message(1, e)
 
     dirty_things = ["aword", [1, 2, 3], {"an": "object"}]
-    neat_range = range(low - 25, high + 20, 5)
+    neat_range = list(range(low - 25, high + 20, 5))
     mockInputs = dirty_things + neat_range
     try:
         with Timeout(3):
@@ -89,12 +90,12 @@ def test_example_guessingGame(path):
     try:
         path = "{}/week{}/exercise2.py".format(path, WEEK_NUMBER)
         # exercise2 = imp.load_source("exercise2", path)
-        exercise2 = SourceFileLoader("exercise2", path)
+        exercise2 = importlib.import_module("exercise2", path)
     except Exception as e:
         return syntax_error_message(2, e)
     upperBound = 5
     guesses = range(5+1)
-    mockInputs = [upperBound] + guesses
+    mockInputs = [upperBound] + list(guesses)
     try:
         with Timeout(3):
             with mock.patch('__builtin__.raw_input', side_effect=mockInputs):
@@ -108,7 +109,7 @@ def test_advanced_guessingGame(path, mockInputs):
     try:
         path = "{}/week{}/exercise3.py".format(path, WEEK_NUMBER)
         # exercise3 = imp.load_source("exercise3", path)
-        exercise3 = SourceFileLoader("exercise3", path)
+        exercise3 = importlib.import_module("exercise3", path)
     except Exception as e:
         return syntax_error_message(3, e)
 
@@ -127,7 +128,7 @@ def test_binary_search(path, low, high, actual):
     """
     try:
         path = "{}/week{}/exercise4.py".format(path, WEEK_NUMBER)
-        exercise4 = SourceFileLoader("exercise4", path)
+        exercise4 = importlib.import_module("exercise4", path)
         BASE2 = 2
         b = None
         with Timeout(3):
@@ -148,7 +149,7 @@ def vis_binary_search_performance(path="."):
     try:
         path = "{}/week{}/exercise4.py".format(path, WEEK_NUMBER)
         # exercise4 = imp.load_source("exercise4", path)
-        exercise4 = SourceFileLoader("exercise4", path)
+        exercise4 = importlib.import_module("exercise4", path)
     except Exception as e:
         return syntax_error_message(4, e)
 
@@ -197,7 +198,7 @@ def theTests(path_to_code_to_check="."):
 
     if ex_runs(path_to_code_to_check, exNumber=1, weekNumber=WEEK_NUMBER):
         # exercise1 = imp.load_source("exercise1", ex1path)
-        exercise1 = SourceFileLoader("exercise1", ex1path)
+        exercise1 = importlib.import_module("exercise1", ex1path)
 
         testResults.append(
             test(exercise1.loop_ranger(3, 8, 1) == [3, 4, 5, 6, 7],
@@ -271,7 +272,7 @@ def theTests(path_to_code_to_check="."):
 
         lowerBound = 10
         upperBound = 15
-        guesses = range(lowerBound, upperBound + 1)
+        guesses = list(range(lowerBound, upperBound + 1))
         mockInputs = [lowerBound] + [upperBound] + guesses
         testResults.append(
             test(test_advanced_guessingGame(path_to_code_to_check,
@@ -288,7 +289,7 @@ def theTests(path_to_code_to_check="."):
         lowerBound = 15
         upperBound = 10
         secondGuess = 25
-        guesses = range(lowerBound, secondGuess + 1)
+        guesses = list(range(lowerBound, secondGuess + 1))
         mockInputs = [lowerBound] + [upperBound] + [secondGuess] + guesses
         testResults.append(
             test(test_advanced_guessingGame(path_to_code_to_check,
@@ -299,7 +300,7 @@ def theTests(path_to_code_to_check="."):
         lowerBound = 10
         upperBound = 11
         secondGuess = 15
-        guesses = range(lowerBound, secondGuess + 1)
+        guesses = list(range(lowerBound, secondGuess + 1))
         mockInputs = [lowerBound] + [upperBound] + [secondGuess] + guesses
         testResults.append(
             test(test_advanced_guessingGame(path_to_code_to_check,
@@ -310,7 +311,7 @@ def theTests(path_to_code_to_check="."):
         lowerBound = 10
         upperBound = 10
         secondGuess = 15
-        guesses = range(lowerBound, secondGuess + 1)
+        guesses = list(range(lowerBound, secondGuess + 1))
         mockInputs = [lowerBound] + [upperBound] + [secondGuess] + guesses
         testResults.append(
             test(test_advanced_guessingGame(path_to_code_to_check,
